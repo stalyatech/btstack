@@ -43,8 +43,7 @@
  *  Created by Matthias Ringwald on 6/6/09.
  */
 
-// enable POSIX functions (needed for -std=c99)
-#define _NUTTX_MONOTONIC_CLOCK
+#define CONFIG_BTSTACK_MONOTONIC_CLOCK
 
 #include "btstack_run_loop_nuttx.h"
 
@@ -77,7 +76,7 @@ static int                   btstack_run_loop_nuttx_poll_data_sources_fd;
 static btstack_data_source_t btstack_run_loop_nuttx_poll_data_sources_ds;
 
 // start time. tv_usec/tv_nsec = 0
-#ifdef _NUTTX_MONOTONIC_CLOCK
+#ifdef CONFIG_BTSTACK_MONOTONIC_CLOCK
 // use monotonic clock if available
 static struct timespec init_ts;
 #else
@@ -101,7 +100,7 @@ static bool btstack_run_loop_nuttx_remove_data_source(btstack_data_source_t *ds)
     return btstack_run_loop_base_remove_data_source(ds);
 }
 
-#ifdef _NUTTX_MONOTONIC_CLOCK
+#ifdef CONFIG_BTSTACK_MONOTONIC_CLOCK
 /**
  * @brief Returns the timespec which represents the time(stop - start). It might be negative
  */
@@ -142,7 +141,7 @@ static uint64_t timespec_diff_milis(struct timespec* start, struct timespec* sto
  */
 static uint32_t btstack_run_loop_nuttx_get_time_ms(void){
     uint32_t time_ms;
-#ifdef _NUTTX_MONOTONIC_CLOCK
+#ifdef CONFIG_BTSTACK_MONOTONIC_CLOCK
     struct timespec now_ts;
     clock_gettime(CLOCK_MONOTONIC, &now_ts);
     time_ms = (uint32_t) timespec_diff_milis(&init_ts, &now_ts);
@@ -166,7 +165,7 @@ static void btstack_run_loop_nuttx_execute(void) {
     struct timeval tv;
     uint32_t now_ms;
 
-#ifdef _NUTTX_MONOTONIC_CLOCK
+#ifdef CONFIG_BTSTACK_MONOTONIC_CLOCK
     log_info("POSIX run loop with monotonic clock");
 #else
     log_info("POSIX run loop using ettimeofday fallback.");
@@ -321,7 +320,7 @@ static int btstack_run_loop_nuttx_register_pipe_datasource(btstack_data_source_t
 static void btstack_run_loop_nuttx_init(void){
     btstack_run_loop_base_init();
     
-#ifdef _NUTTX_MONOTONIC_CLOCK
+#ifdef CONFIG_BTSTACK_MONOTONIC_CLOCK
     clock_gettime(CLOCK_MONOTONIC, &init_ts);
     init_ts.tv_nsec = 0;
 #else

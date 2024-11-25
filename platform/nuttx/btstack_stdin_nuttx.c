@@ -35,6 +35,8 @@
  *
  */
 
+#ifdef HAVE_BTSTACK_STDIN
+
 #define BTSTACK_FILE__ "btstack_stdin_nuttx.c"
 
 #include <stdio.h>
@@ -109,3 +111,5 @@ void btstack_stdin_reset(void){
         perror("tcsetattr ICANON");
     }
 }
+
+#endif /* HAVE_BTSTACK_STDIN */
