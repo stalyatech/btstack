@@ -35,6 +35,8 @@
  *
  */
 
+#ifdef ENABLE_PRINTF_HEXDUMP
+
 #define BTSTACK_FILE__ "hci_dump_nuttx_stdout.c"
 
 /*
@@ -151,3 +153,5 @@ const hci_dump_t * hci_dump_nuttx_stdout_get_instance(void){
     };
     return &hci_dump_instance;
 }
+
+#endif /* ENABLE_PRINTF_HEXDUMP */

@@ -1945,7 +1945,7 @@ static void hci_initializing_run(void){
             hci_send_prepared_cmd_packet();
             break;
         case HCI_INIT_SEND_READ_LOCAL_NAME:
-#ifdef ENABLE_CLASSIC
+#if defined(ENABLE_CLASSIC) && defined(ENABLE_LOCAL_NAME) 
             hci_send_cmd(&hci_read_local_name);
             hci_stack->substate = HCI_INIT_W4_SEND_READ_LOCAL_NAME;
             break;
