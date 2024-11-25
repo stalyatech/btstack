@@ -42,6 +42,8 @@
 #ifndef HCI_DUMP_NUTTX_STDOUT_H
 #define HCI_DUMP_NUTTX_STDOUT_H
 
+#ifdef ENABLE_PRINTF_HEXDUMP
+
 #include <stdint.h>
 #include <stdarg.h>       // for va_list
 #include "hci_dump.h"
@@ -61,4 +63,7 @@ const hci_dump_t * hci_dump_nuttx_stdout_get_instance(void);
 #if defined __cplusplus
 }
 #endif
+
+#endif /* ENABLE_PRINTF_HEXDUMP */
+
 #endif // HCI_DUMP_NUTTX_STDOUT_H

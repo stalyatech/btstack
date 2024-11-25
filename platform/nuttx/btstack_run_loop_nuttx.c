@@ -43,7 +43,6 @@
  *  Created by Matthias Ringwald on 6/6/09.
  */
 
-#define CONFIG_BTSTACK_MONOTONIC_CLOCK
 
 #include "btstack_run_loop_nuttx.h"
 
